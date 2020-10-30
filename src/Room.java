@@ -25,6 +25,11 @@ public class Room {
 
 
     public void toJSON() throws IOException {
+        File directory = new File("Map");
+        if (! directory.exists()){
+            directory.mkdir();
+
+        }
         Gson g = new Gson();
         FileWriter myWriter = new FileWriter(new File("Map", this.name + ".room"));
         myWriter.write(g.toJson(this));
