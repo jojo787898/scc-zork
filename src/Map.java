@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,13 +23,13 @@ public class Map {
 
         File file = new File(path);
 
-        Scanner scan = new Scanner(file);
+        for (File f:file.listFiles()) {
 
-        String json = "";
-        while(scan.hasNext()){
-            json += scan.nextLine();
+            Scanner scan = new Scanner(f);
+            if(scan.hasNext()){
+                rooms.add(g.fromJson(scan.nextLine(),Room.class));
+            }
         }
-        rooms.add(g.fromJson(json,Room.class));
     }
 
     public String toString(){

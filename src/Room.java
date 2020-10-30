@@ -26,7 +26,7 @@ public class Room {
 
     public void toJSON() throws IOException {
         Gson g = new Gson();
-        FileWriter myWriter = new FileWriter(this.name);
+        FileWriter myWriter = new FileWriter(new File("Map", this.name + ".room"));
         myWriter.write(g.toJson(this));
         myWriter.close();
     }

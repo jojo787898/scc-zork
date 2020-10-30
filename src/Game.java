@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public class Game {
 
         rooms.add(new Room("Test Room","Test room description", new Container(), new ArrayList<Container>(), new ArrayList<Door>()));
 
+        rooms.add(new Room("Test Room 2","Test room description 2", new Container(), new ArrayList<Container>(), new ArrayList<Door>()));
         Map map = new Map(rooms);
 
         // Saves the map to a JSON file
@@ -18,7 +20,7 @@ public class Game {
         System.out.println(map.toString());
 
         // Loads a new map from that JSON file
-        Map map2 = new Map("Test Room");
+        Map map2 = new Map("Map/");
 
         System.out.println(map2.toString());
     }
