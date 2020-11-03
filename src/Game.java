@@ -1,6 +1,7 @@
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
     public static void main(String[] args) throws IOException {
@@ -9,7 +10,7 @@ public class Game {
         ArrayList<Room> rooms = new ArrayList<Room>();
 
         //Uses the constructor for an unconnected room
-        Room room1 = new Room("Test Room","Test room description", new Container(), new ArrayList<Container>(), new ArrayList<Door>());
+        Room room1 = new Room("Test Room","Test room description", new Container(), new ArrayList<Container>(), new HashMap<String,Boolean>());
 
         //Uses the constructor to create a new room linked to an existing room, with default door state open and unlocked
         Room room2 = new Room("Test Room 2","Test room description 2", new Container(), new ArrayList<Container>(),room1);

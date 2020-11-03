@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Room {
 
@@ -12,16 +14,18 @@ public class Room {
     String description;
     Container items;
     ArrayList<Container> containers;
-    ArrayList<Door> doors;
+    Map<String, Boolean> connectedRooms;
+
+    //ArrayList<Door> doors;
 
     //Creates a room with all given values
-    public Room(String name, String description, Container items, ArrayList<Container> containers, ArrayList<Door> doors){
+    public Room(String name, String description, Container items, ArrayList<Container> containers, Map<String, Boolean> connectedRooms){
 
         this.name = name;
         this.description = description;
         this.items = items;
         this.containers = containers;
-        this.doors = doors;
+        this.connectedRooms = connectedRooms;
     }
 
     //Creates a room connected to an existing room with a default door that is open and unlocked
@@ -31,28 +35,29 @@ public class Room {
         this.description = description;
         this.items = items;
         this.containers = containers;
-        doors = new ArrayList<>();
-        Door temp = new Door("Door",false, true, new Room[]{this,neighbor});
-        doors.add(temp);
-        neighbor.addDoor(temp);
+        connectedRooms = new HashMap<String, Boolean>();
+
+        connectedRooms.put(neighbor.name,false);
+        neighbor.connectRooms(this, false);
+
     }
 
     //Creates a room connected to an existing room with a custom door state
-    public Room(String name, String description, Container items, ArrayList<Container> containers, Room neighbor, Boolean open, Boolean locked){
+    public Room(String name, String description, Container items, ArrayList<Container> containers, Room neighbor, Boolean locked){
 
         this.name = name;
         this.description = description;
         this.items = items;
         this.containers = containers;
-        doors = new ArrayList<>();
-        Door temp = new Door("Door",open, locked, new Room[]{this,neighbor});
-        doors.add(temp);
-        neighbor.addDoor(temp);
+        connectedRooms = new HashMap<String, Boolean>();
+
+        connectedRooms.put(neighbor.name,locked);
+
+        neighbor.connectRooms(this, locked);
     }
 
-
-    public void addDoor(Door door){
-        doors.add(door);
+    public void connectRooms(Room room, Boolean locked){
+        this.connectedRooms.put(room.name, locked);
     }
 
     public void toJSON() throws IOException {
@@ -67,4 +72,3 @@ public class Room {
         myWriter.close();
     }
 }
-                                                  
