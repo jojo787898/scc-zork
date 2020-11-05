@@ -1,10 +1,11 @@
-import com.google.gson.Gson;
+/*
+ *	Container
+ */
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import com.google.gson.*;
+
+import java.io.*;
+import java.util.*;
 
 public class Container {
     String name;

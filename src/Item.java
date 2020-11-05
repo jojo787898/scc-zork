@@ -1,7 +1,9 @@
-import com.google.gson.Gson;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+/*
+ *	Item
+ */
+
+import com.google.gson.*;
+import java.io.*;
 
 public class Item {
     //fields

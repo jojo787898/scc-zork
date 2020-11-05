@@ -1,8 +1,10 @@
-import com.google.gson.Gson;
+/*
+ *	RoomSerializable
+ */
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.google.gson.*;
+
+import java.io.*;
 import java.util.*;
 
 public class RoomSerializable {

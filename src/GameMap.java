@@ -1,7 +1,9 @@
-import com.google.gson.Gson;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+/*
+ *	GameMap
+ */
+
+import com.google.gson.*;
+import java.io.*;
 import java.util.*;
 
 public class GameMap {

@@ -1,4 +1,8 @@
-import java.io.IOException;
+/*
+ *	Room
+ */
+
+import java.io.*;
 import java.util.*;
 
 public class Room {
