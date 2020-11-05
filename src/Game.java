@@ -34,4 +34,4 @@ public class Game {
         System.out.println("GameMap 2");
         System.out.println(gameMap2.toString());
     }
-}
+

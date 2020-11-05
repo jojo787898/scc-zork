@@ -1,11 +1,23 @@
 import com.google.gson.Gson;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Item {
+    //fields
     String name;
+    String description;
+    Container location;
+
+    public Item(String name){
+        this.name = name;
+    }
+
+    public Item(String name, String description, Container location) {
+        this.name = name;
+        this.description = description;
+        this.location = location;
+    }
 
     public void toJSON() throws IOException {
 
@@ -15,11 +27,8 @@ public class Item {
         myWriter.close();
     }
 
-    public Item(String name){
-        this.name = name;
-    }
-
-    public String toString(){
-        return this.name;
+    //print
+    public String toString() {
+        return "Item is " + name + ". " + description + ". " + location;
     }
 }

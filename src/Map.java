@@ -39,4 +39,14 @@ public class Map {
         }
         return out;
     }
+
+    public Room nameToRoom(String name){
+        for (Room room:rooms) {
+            if (room.name.equals(name)){
+                return room;
+            }
+        }
+        System.out.println("Could not find room");
+        return null;
+    }
 }
