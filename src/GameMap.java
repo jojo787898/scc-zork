@@ -7,21 +7,20 @@ import java.io.*;
 import java.util.*;
 
 public class GameMap {
+
     Set<Room> rooms;
     Set<Item> items;
     Set<Container> containers;
-
-    public GameMap(String path) throws FileNotFoundException {
-        rooms = new HashSet<>();
-        items = new HashSet<>();
-        containers = new HashSet<>();
-        loadFromFile(path);
-    }
 
     public GameMap(){
         rooms = new HashSet<>();
         items = new HashSet<>();
         containers = new HashSet<>();
+    }
+
+    public GameMap(String path) throws FileNotFoundException {
+	GameMap();
+        loadFromFile(path);
     }
 
     public GameMap(Set<Room> rooms){
@@ -33,7 +32,6 @@ public class GameMap {
     public void loadFromFile(String path) throws FileNotFoundException {
 
         Gson g = new Gson();
-
         File roomFile = new File( "Rooms/");
         File itemFile = new File( "Items/");
         File containerFile = new File("Containers/");

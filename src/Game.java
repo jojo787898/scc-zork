@@ -6,8 +6,8 @@ import java.io.*;
 import java.util.*;
 
 public class Game {
-    public static void main(String[] args) throws IOException {
 
+    public static void main(String[] args) throws IOException {
 
         GameMap gm = new GameMap();
         //Uses the constructor for an unconnected room
@@ -34,4 +34,4 @@ public class Game {
         System.out.println("GameMap 2");
         System.out.println(gameMap2.toString());
     }
-
+}
