@@ -1,27 +1,37 @@
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Game {
     public static void main(String[] args) throws IOException {
 
-        // Creates a new map with one empty room called Test Room
-        ArrayList<Room> rooms = new ArrayList<Room>();
 
-        rooms.add(new Room("Test Room","Test room description", new Container(), new ArrayList<Container>(), new ArrayList<Door>()));
+        GameMap gm = new GameMap();
+        //Uses the constructor for an unconnected room
+        Room room1 = new Room(gm,"Test Room","Test room description");
+        room1.addItem("Screwdriver");
+        //Uses the constructor to create a new room linked to an existing room, with default door state open and unlocked
+        Room room2 = new Room(gm,"Test Room 2","Test room description 2",room1);
 
-        rooms.add(new Room("Test Room 2","Test room description 2", new Container(), new ArrayList<Container>(), new ArrayList<Door>()));
-        Map map = new Map(rooms);
+        gm.addRoom(room1);
+        gm.addRoom(room2);
 
-        // Saves the map to a JSON file
-        for (Room room:map.rooms) {
-            room.toJSON();
-        }
-        System.out.println(map.toString());
+        System.out.println("GameMap 1:");
+        System.out.println(gm.toString());
 
+        System.out.println("Saving to file");
+
+        gm.Save();
+
+        System.out.println("Loading from file:");
+        System.out.println();
         // Loads a new map from that JSON file
-        Map map2 = new Map("Map/");
+        GameMap gameMap2 = new GameMap("/");
 
-        System.out.println(map2.toString());
+        System.out.println("GameMap 2");
+        System.out.println(gameMap2.toString());
     }
 }
