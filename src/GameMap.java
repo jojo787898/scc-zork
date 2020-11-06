@@ -19,7 +19,7 @@ public class GameMap {
     }
 
     public GameMap(String path) throws FileNotFoundException {
-	GameMap();
+	this();
         loadFromFile(path);
     }
 
