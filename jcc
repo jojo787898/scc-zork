@@ -1,0 +1,39 @@
+#!/bin/sh
+
+#
+#	jcc: compile and run .java file, move all .class and .jar files to respective
+#	     directories
+#	TODO Add debug, compile only vs run flags
+
+die() {
+	echo "$@"
+	exit 1
+}
+
+# First arg should be file
+[ "$1" ] || die "jcc: no file to compile"
+main=$(echo $1 | sed -e "s/\.java//")
+jars=""
+
+# Check for and create Build(classes) and Jar directories
+[ -d "./Build" ] || mkdir Build
+[ -d "./Jars" ] || mkdir Jars
+mv *.jar ./Jars 2> /dev/null
+mv *.class ./Build 2> /dev/null
+
+# List all JARS
+for jar in $(ls ./Jars); do
+	if [ ! "$jars" ]; then
+		jars="./Jars/$jar"
+	else
+		jars="$jars:./Jars/$jar"
+	fi
+done
+
+# Compile
+javac -g -d Build/ -cp "./:./Build:$jars" $main.java
+
+# Run
+java -cp "./Build:$jars" $main
+
+exit 0
