@@ -41,7 +41,7 @@ public class Room {
         this.name = name;
         this.description = description;
 
-        this.items = new Container(name+"container");
+        this.items = new Container(name + "container", "");
         this.containers = new HashSet<>();
         this.connectedRooms = new HashMap<>();
     }
@@ -50,7 +50,7 @@ public class Room {
         this.gameMap = gameMap;
         this.name = name;
         this.description = description;
-        this.items = new Container(name+"container");
+        this.items = new Container(name + "container","");
         this.containers = new HashSet<>();
         Map<Room, Boolean> connectedRooms = new HashMap<>();
 
@@ -64,7 +64,7 @@ public class Room {
         this.gameMap = gameMap;
         this.name = name;
         this.description = description;
-        this.items = new Container(name+"container");
+        this.items = new Container(name + "container", "");
         this.containers = new HashSet<>();
         Map<Room, Boolean> connectedRooms = new HashMap<>();
 
@@ -82,7 +82,7 @@ public class Room {
         RoomSerializable rs = new RoomSerializable(this);
         rs.toJSON();
 
-        for (Item item:items.items) {
+        for (Item item:items.getItems()) {
             item.toJSON();
         }
 
@@ -91,7 +91,7 @@ public class Room {
         }
     }
 
-    public void addItem(String itemName){
-        items.items.add(new Item(itemName));
+    public void addItem(String itemName, String description){
+        items.addItem(new Item(itemName, description));
     }
 }

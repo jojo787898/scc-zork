@@ -55,11 +55,11 @@ public class RoomSerializable {
 
         this.name = room.name;
         this.description = room.description;
-        this.items = room.items.name;
+        this.items = room.items.getName();
 
         Set<String> containers = new HashSet<>();
         for (Container container:room.containers) {
-            containers.add(container.name);
+            containers.add(container.getName());
         }
         this.containers = containers;
 

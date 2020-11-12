@@ -7,22 +7,19 @@ import java.io.*;
 
 public class Item {
     //fields
-    String name;
-    String description;
-    Container location;
+    private String name;
+    private String description;
 
-    public Item(String name){
-        this.name = name;
-    }
-
-    public Item(String name, String description, Container location) {
+    public Item(String name, String description) {
         this.name = name;
         this.description = description;
-        this.location = location;
+    }
+
+    public String toName() {
+        return this.name;
     }
 
     public void toJSON() throws IOException {
-
         Gson g = new Gson();
         FileWriter myWriter = new FileWriter(new File("Items", this.name + ".item"));
         myWriter.write(g.toJson(this));
@@ -31,6 +28,7 @@ public class Item {
 
     //print
     public String toString() {
-        return "Item is " + name + ". " + description + ". " + location;
+        String total = "Name : " + toName() + "\nDescription : " + this.description;
+        return total;
     }
 }

@@ -12,7 +12,7 @@ public class Game {
         GameMap gm = new GameMap();
         //Uses the constructor for an unconnected room
         Room room1 = new Room(gm,"Test Room","Test room description");
-        room1.addItem("Screwdriver");
+        room1.addItem("Screwdriver", "");
         //Uses the constructor to create a new room linked to an existing room, with default door state open and unlocked
         Room room2 = new Room(gm,"Test Room 2","Test room description 2",room1);
 
@@ -34,4 +34,4 @@ public class Game {
         System.out.println("GameMap 2");
         System.out.println(gameMap2.toString());
     }
-
+}

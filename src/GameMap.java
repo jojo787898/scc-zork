@@ -73,8 +73,8 @@ public class GameMap {
         String out = "Rooms: \n";
         for (Room room:rooms) {
             out += room.name + ": " + room.description + "\n" + "Contains: \n";
-            for (Item item:room.items.items) {
-                out+= "    " + item.name + "\n";
+            for (Item item:room.items.getItems()) {
+                out+= "    " + item.toName() + "\n";
             }
         }
         return out;
@@ -92,7 +92,7 @@ public class GameMap {
 
     public Item nameToItem(String name){
         for(Item item:items){
-            if(item.name.equals(name)){
+            if(item.toName().equals(name)){
                 return item;
             }
         }
@@ -102,7 +102,7 @@ public class GameMap {
 
     public Container nameToContainer(String name){
         for(Container container:containers){
-            if(container.name.equals(name)){
+            if(container.getName().equals(name)){
                 return container;
             }
         }
@@ -151,12 +151,12 @@ public class GameMap {
     public void addRoom(Room room) {
         rooms.add(room);
         containers.add(room.items);
-        for (Item item:room.items.items) {
+        for (Item item:room.items.getItems()) {
             items.add(item);
         }
         for (Container container:room.containers) {
             containers.add(container);
-            for (Item item:container.items) {
+            for (Item item:container.getItems()) {
                 items.add(item);
             }
         }
