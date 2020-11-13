@@ -8,27 +8,44 @@ import java.io.*;
 import java.util.*;
 
 public class Container {
-    String name;
-    Set<Item> items;
 
-    public Container(String name, Set<Item> items){
+    private String name;
+    private String description;
+    private Set<Item> items;
+
+    public Container(String name, String description, Set<Item> items){
         this.name = name;
+        this.description = description;
         this.items = items;
     }
 
-    public Container(String name){
-        this.name = name;
-        this.items = new HashSet<>();
+    public Container(String name, String description){
+        this(name, description, new HashSet<>());
     }
 
-    public void toJSON() throws IOException {
-        Gson g = new Gson();
-        FileWriter myWriter = new FileWriter(new File("Containers", this.name + ".container"));
-        myWriter.write(g.toJson(this));
-        myWriter.close();
+    public void addItem(Item item) {
+        items.add(item);
+    }
 
-        for (Item item:items) {
-            item.toJSON();
+    public void removeItem(Item item) {
+        this.items.remove(item);
+    }
+
+    public Set<Item> getItems() {
+        return this.items;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String toString() {
+        String name = "Name : " + this.name + "\n";
+        String description = "Description : " + this.description + "\n";
+        String itemList = "Items : ";
+        for (Item item : this.items) {
+            itemList += item.getName() + ", ";
         }
+        return name + description + itemList + "\n";
     }
 }

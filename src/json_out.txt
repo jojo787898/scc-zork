@@ -1,1 +1,0 @@
-{"rooms":[{"name":"Test-Room","description":"I like the number 1","items":{"name":"","description":""},"containers":[]},{"name":"Test-Room 2","description":"Two isn\u0027t half bad","items":{"name":"","description":""},"containers":[]}]}
