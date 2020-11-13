@@ -7,12 +7,11 @@ import java.util.*;
 
 public class Room {
 
-    GameMap gameMap;
-    String name;
-    String description;
-    Container items;
-    Set<Container> containers;
-    Map<String, Boolean> connectedRooms;
+    private String name;
+    private String description;
+    private Container items;
+    private Set<Container> containers;
+    private Map<String, Boolean> connectedRooms;
 
     // Basic constructor with name and desc
     public Room(String name, String description) {
@@ -26,9 +25,7 @@ public class Room {
     // Constructor with connection
     public Room(String name, String description, String neighbor_room) {
         this(name, description);
-        Map<String, Boolean> connectedRooms = new HashMap<>();
-        connectedRooms.put(neighbor_room, false);
-        this.connectedRooms = connectedRooms;
+        connectRoom(neighbor_room, false);
     }
 
     // Always make sure to connect both rooms in main
@@ -36,29 +33,20 @@ public class Room {
         this.connectedRooms.put(room_name, locked);
     }
 
-    public void serialize() throws IOException {
-        RoomSerializable rs = new RoomSerializable(this);
-        rs.toJSON();
-
-        for (Item item:items.getItems()) {
-            item.toJSON();
-        }
-
-        for(Container container:containers){
-            container.toJSON();
-        }
-    }
-
     public void addItem(String itemName, String description){
-        items.addItem(new Item(itemName, description));
+        this.items.addItem(new Item(itemName, description));
     }
-
+    
+    // TODO Make prettier
     public String toString() {
 	String ret_str = "";
         for(String room_name : connectedRooms.keySet()) {
+	    ret_str += "-Connected rooms-\n";
             ret_str += room_name + "->";
             ret_str += (connectedRooms.get(room_name)) ? "unlocked" : "locked" ;
 	    ret_str += "\n";
+	    ret_str += "-Items-\n";
+            ret_str += this.items.toString();
 	}
         return ret_str;
     }

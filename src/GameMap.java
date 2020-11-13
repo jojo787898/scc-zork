@@ -23,7 +23,7 @@ public class GameMap {
 	readFromFile(path);
     }
 
-    // Have to do some funky shtuff to serialize a list of rooms directly
+    // Have to do some funky shtuff to serialize a Set of rooms directly
     public void readFromFile(String path) {
 	try {
             Gson g = new Gson();
@@ -41,17 +41,18 @@ public class GameMap {
     }
 
     public String toString(){
-        String out = "Rooms: \n";
-        for (Room room:rooms) {
+        String out = "Rooms: \n------------\n";
+        for (Room room : rooms) {
             out += room.getName() + ": " + room.getDescription() + "\n" + "Contains: \n";
 	    out += room.toString();
+	    out += "----------\n";
         }
         return out;
     }
 
     public Room nameToRoom(String name){
-        for (Room room:rooms) {
-            if (room.name.equals(name)){
+        for (Room room : rooms) {
+            if (room.getName().equals(name)){
                 return room;
             }
         }
