@@ -11,10 +11,10 @@ public class Game {
 
         GameMap gm = new GameMap();
         //Uses the constructor for an unconnected room
-        Room room1 = new Room(gm,"Test Room","Test room description");
+        Room room1 = new Room("Test Room", "Test room description");
         room1.addItem("Screwdriver", "");
         //Uses the constructor to create a new room linked to an existing room, with default door state open and unlocked
-        Room room2 = new Room(gm,"Test Room 2","Test room description 2",room1);
+        Room room2 = new Room("Test Room 2", "Test room description 2", room1.getName());
 
         gm.addRoom(room1);
         gm.addRoom(room2);
@@ -29,7 +29,7 @@ public class Game {
         System.out.println("Loading from file:");
         System.out.println();
         // Loads a new map from that JSON file
-        GameMap gameMap2 = new GameMap("/");
+        GameMap gameMap2 = new GameMap("json_out.txt");
 
         System.out.println("GameMap 2");
         System.out.println(gameMap2.toString());

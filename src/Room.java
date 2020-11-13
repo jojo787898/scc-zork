@@ -12,10 +12,26 @@ public class Room {
     String description;
     Container items;
     Set<Container> containers;
-    Map<Room, Boolean> connectedRooms;
+    Map<String, Boolean> connectedRooms;
 
+    // Basic constructor with name and desc
+    public Room(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.items = new Container(name + "container", "");
+        this.containers = new HashSet<>();
+        this.connectedRooms = new HashMap<>();
+    }
 
+    // Constructor with connection
+    public Room(String name, String description, String neighbor_room) {
+        this(name, description);
+        Map<String, Boolean> connectedRooms = new HashMap<>();
+        connectedRooms.put(neighbor_room, false);
+        this.connectedRooms = connectedRooms;
+    }
 
+/*
     public Room(GameMap gameMap, RoomSerializable rs){
         this.gameMap = gameMap;
         this.name = rs.name;
@@ -36,16 +52,6 @@ public class Room {
         this.connectedRooms = connectedRooms;
     }
 
-    public Room(GameMap gameMap,String name, String description) {
-        this.gameMap = gameMap;
-        this.name = name;
-        this.description = description;
-
-        this.items = new Container(name + "container", "");
-        this.containers = new HashSet<>();
-        this.connectedRooms = new HashMap<>();
-    }
-
     public Room(GameMap gameMap, String name, String description, Room neighbor, Boolean locked) {
         this.gameMap = gameMap;
         this.name = name;
@@ -60,22 +66,12 @@ public class Room {
         neighbor.connectRooms(this,locked);
     }
 
-    public Room(GameMap gameMap, String name, String description, Room neighbor) {
-        this.gameMap = gameMap;
-        this.name = name;
-        this.description = description;
-        this.items = new Container(name + "container", "");
-        this.containers = new HashSet<>();
-        Map<Room, Boolean> connectedRooms = new HashMap<>();
-
-        connectedRooms.put(neighbor,false);
-        this.connectedRooms = connectedRooms;
-        neighbor.connectRooms(this,false);
-    }
+*/
 
 
-    public void connectRooms(Room room, Boolean locked){
-        this.connectedRooms.put(room, locked);
+    // Always make sure to connect both rooms in main
+    public void connectRooms(String room_name, Boolean locked){
+        this.connectedRooms.put(room_name, locked);
     }
 
     public void serialize() throws IOException {
@@ -93,5 +89,17 @@ public class Room {
 
     public void addItem(String itemName, String description){
         items.addItem(new Item(itemName, description));
+    }
+
+    public String toString() {
+        return "TODO: ROOM TO STRING\n";
+    }
+
+    public String getName() {
+	    return this.name;
+    }
+
+    public String getDescription() {
+	    return this.description;
     }
 }
