@@ -7,9 +7,9 @@ import java.io.*;
 import java.util.*;
 
 public class GameMap {
-    Set<Room> rooms;
-    Set<Item> items;
-    Set<Container> containers;
+    private Set<Room> rooms;
+    private Set<Item> items;
+    private Set<Container> containers;
 
     public GameMap(String path) throws FileNotFoundException {
         rooms = new HashSet<>();
@@ -72,8 +72,8 @@ public class GameMap {
     public String toString(){
         String out = "Rooms: \n";
         for (Room room:rooms) {
-            out += room.name + ": " + room.description + "\n" + "Contains: \n";
-            for (Item item:room.items.getItems()) {
+            out += room.getName() + ": " + room.getDescription() + "\n" + "Contains: \n";
+            for (Item item:room.getItems().getItems()) {
                 out+= "    " + item.toName() + "\n";
             }
         }
@@ -82,7 +82,7 @@ public class GameMap {
 
     public Room nameToRoom(String name){
         for (Room room:rooms) {
-            if (room.name.equals(name)){
+            if (room.getName().equals(name)){
                 return room;
             }
         }
@@ -150,11 +150,11 @@ public class GameMap {
 
     public void addRoom(Room room) {
         rooms.add(room);
-        containers.add(room.items);
-        for (Item item:room.items.getItems()) {
+        containers.add(room.getItems());
+        for (Item item:room.getItems().getItems()) {
             items.add(item);
         }
-        for (Container container:room.containers) {
+        for (Container container:room.getContainers()) {
             containers.add(container);
             for (Item item:container.getItems()) {
                 items.add(item);

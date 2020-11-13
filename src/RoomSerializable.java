@@ -8,72 +8,92 @@ import java.io.*;
 import java.util.*;
 
 public class RoomSerializable {
-    String name;
-    String description;
-    String items;
-    Set<String> containers;
-    Map<String, Boolean> connectedRooms;
+    private String name;
+    private String description;
+    private String items;
+    private Set<String> containers;
+    private Map<String, Boolean> connectedRooms;
 
-    public RoomSerializable(String name, String description, String items, Set<String>  containers, Map<String, Boolean> connectedRooms){
-
-        this.name = name;
-        this.description = description;
-        this.items = items;
-        this.containers = containers;
-        this.connectedRooms = connectedRooms;
+    public String getName() {
+        return this.name;
     }
 
-    //Creates a room connected to an existing room with a default door that is open and unlocked
-    public RoomSerializable(String name, String description, String items, Set<String> containers, RoomSerializable neighbor){
-
-        this.name = name;
-        this.description = description;
-        this.items = items;
-        this.containers = containers;
-        connectedRooms = new HashMap<String, Boolean>();
-
-        connectedRooms.put(neighbor.name,false);
-        neighbor.connectRooms(this, false);
-
+    public String getDescription() {
+        return this.description;
     }
 
-    //Creates a room connected to an existing room with a custom door state
-    public RoomSerializable(String name, String description, String items, Set<String> containers, RoomSerializable neighbor, Boolean locked){
-
-        this.name = name;
-        this.description = description;
-        this.items = items;
-        this.containers = containers;
-        connectedRooms = new HashMap<String, Boolean>();
-
-        connectedRooms.put(neighbor.name,locked);
-
-        neighbor.connectRooms(this, locked);
+    public String getItems() {
+        return this.items;
     }
+
+    public Set<String> getContainers() {
+        return this.containers;
+    }
+
+    public Map<String, Boolean> getConnectedRooms() {
+        return this.connectedRooms;
+    }
+
+//    public RoomSerializable(String name, String description, String items, Set<String>  containers, Map<String, Boolean> connectedRooms){
+//
+//        this.name = name;
+//        this.description = description;
+//        this.items = items;
+//        this.containers = containers;
+//        this.connectedRooms = connectedRooms;
+//    }
+
+//    //Creates a room connected to an existing room with a default door that is open and unlocked
+//    public RoomSerializable(String name, String description, String items, Set<String> containers, RoomSerializable neighbor){
+//
+//        this.name = name;
+//        this.description = description;
+//        this.items = items;
+//        this.containers = containers;
+//        connectedRooms = new HashMap<String, Boolean>();
+//
+//        connectedRooms.put(neighbor.name,false);
+//        neighbor.connectRooms(this, false);
+//
+//    }
+
+//    //Creates a room connected to an existing room with a custom door state
+//    public RoomSerializable(String name, String description, String items, Set<String> containers, RoomSerializable neighbor, Boolean locked){
+//
+//        this.name = name;
+//        this.description = description;
+//        this.items = items;
+//        this.containers = containers;
+//        connectedRooms = new HashMap<String, Boolean>();
+//
+//        connectedRooms.put(neighbor.name,locked);
+//
+//        neighbor.connectRooms(this, locked);
+//    }
 
     public RoomSerializable(Room room){
 
-        this.name = room.name;
-        this.description = room.description;
-        this.items = room.items.getName();
+        this.name = room.getName();
+        this.description = room.getDescription();
+        this.items = room.getItems().getName();
 
         Set<String> containers = new HashSet<>();
-        for (Container container:room.containers) {
+        for (Container container:room.getContainers()) {
             containers.add(container.getName());
         }
         this.containers = containers;
 
         Map<String, Boolean> connectedRooms = new HashMap<>();
 
-        for (Room rm:room.connectedRooms.keySet()) {
-            connectedRooms.put(rm.name,room.connectedRooms.get(rm));
+        for (Room rm:room.getConnectedRoom().keySet()) {
+            connectedRooms.put(rm.getName(),room.getConnectedRoom().get(rm));
         }
         this.connectedRooms = connectedRooms;
     }
 
-    public void connectRooms(RoomSerializable room, Boolean locked){
-        this.connectedRooms.put(room.name, locked);
-    }
+//    public void connectRooms(RoomSerializable room, Boolean locked){
+//        this.connectedRooms.put(room.name, locked);
+//    }
 
     public void toJSON() throws IOException {
         Gson g = new Gson();
@@ -82,11 +102,11 @@ public class RoomSerializable {
         myWriter.close();
     }
 
-    public void removeRoomConnection(RoomSerializable room){
-        if(connectedRooms.containsKey(room)){
-            connectedRooms.remove(room);
-        }else{
-            System.out.println("Room is not connected to " + this.name);
-        }
-    }
+//    public void removeRoomConnection(RoomSerializable room){
+//        if(connectedRooms.containsKey(room)){
+//            connectedRooms.remove(room);
+//        } else {
+//            System.out.println("Room is not connected to " + this.name);
+//        }
+//    }
 }
