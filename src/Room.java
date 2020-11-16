@@ -36,26 +36,26 @@ public class Room {
     public void addItem(String itemName, String description){
         this.items.addItem(new Item(itemName, description));
     }
-    
+
     // TODO Make prettier
     public String toString() {
-	String ret_str = "";
+        String ret_str = "";
         for(String room_name : connectedRooms.keySet()) {
-	    ret_str += "-Connected rooms-\n";
+            ret_str += "-Connected rooms-\n";
             ret_str += room_name + "->";
             ret_str += (connectedRooms.get(room_name)) ? "unlocked" : "locked" ;
-	    ret_str += "\n";
-	    ret_str += "-Items-\n";
+            ret_str += "\n";
+            ret_str += "-Items-\n";
             ret_str += this.items.toString();
-	}
+        }
         return ret_str;
     }
 
     public String getName() {
-	    return this.name;
+        return this.name;
     }
 
     public String getDescription() {
-	    return this.description;
+        return this.description;
     }
 }

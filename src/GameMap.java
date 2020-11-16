@@ -10,9 +10,8 @@ import java.util.*;
 import java.lang.reflect.Type;
 
 public class GameMap {
+
     private Set<Room> rooms;
-    private Set<Item> items;
-    private Set<Container> containers;
 
     // Default constructor
     public GameMap(){
@@ -21,32 +20,32 @@ public class GameMap {
 
     // Read
     public GameMap(String path) throws FileNotFoundException {
-	readFromFile(path);
+        readFromFile(path);
     }
 
     // Have to do some funky shtuff to serialize a Set of rooms directly
     public void readFromFile(String path) {
-	try {
+        try {
             Gson g = new Gson();
-	    Type datasetListType = new TypeToken<Set<Room>>(){}.getType();
-	    String json = "";
-	    Scanner scan = new Scanner(new File(path));
+            Type datasetListType = new TypeToken<Set<Room>>(){}.getType();
+            String json = "";
+            Scanner scan = new Scanner(new File(path));
             while(scan.hasNextLine()) {
                 json += scan.nextLine();
-	    }
-	    scan.close();
-	    this.rooms = g.fromJson(json, datasetListType);
-	} catch(Exception e) {
+            }
+            scan.close();
+            this.rooms = g.fromJson(json, datasetListType);
+        } catch(Exception e) {
             System.err.printf("GameMap: error reading in from %s\n", path);
-	}
+        }
     }
 
     public String toString(){
         String out = "Rooms: \n------------\n";
         for (Room room : rooms) {
             out += room.getName() + ": " + room.getDescription() + "\n" + "Contains: \n";
-	    out += room.toString();
-	    out += "----------\n";
+            out += room.toString();
+            out += "----------\n";
         }
         return out;
     }
@@ -62,16 +61,16 @@ public class GameMap {
     }
 
     public void Save() throws IOException {
-	try {
+        try {
             Gson g = new Gson();
-	    FileWriter writer = new FileWriter("json_out.txt");
-	    String json = g.toJson(this.rooms);
+            FileWriter writer = new FileWriter("json_out.txt");
+            String json = g.toJson(this.rooms);
 
-	    writer.write(json);
-	    writer.close();
-	} catch(Exception e) {
+            writer.write(json);
+            writer.close();
+        } catch(Exception e) {
             System.err.printf("GameMap: error writing to \n");
-	}
+        }
     }
 
     public void addRoom(Room room) {
