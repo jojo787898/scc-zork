@@ -11,10 +11,44 @@ public class Room {
     private String description;
     private Container items;
     private Set<Container> containers;
-    private Map<Room, Boolean> connectedRooms;
+    private Map<String, Boolean> connectedRooms;
+
+    // Basic constructor with name and desc
+    public Room(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.items = new Container(name + "container", "");
+        this.containers = new HashSet<>();
+        this.connectedRooms = new HashMap<>();
+    }
+
+    // Constructor with connection
+    public Room(String name, String description, String neighbor_room) {
+        this(name, description);
+        connectRoom(neighbor_room, false);
+    }
+
+    // Always make sure to connect both rooms in main
+    public void connectRoom(String room_name, Boolean locked){
+        this.connectedRooms.put(room_name, locked);
+    }
 
     public void addItem(String itemName, String description){
-        items.addItem(new Item(itemName, description));
+        this.items.addItem(new Item(itemName, description));
+    }
+
+    // TODO Make prettier
+    public String toString() {
+        String ret_str = "";
+        for(String room_name : connectedRooms.keySet()) {
+            ret_str += "-Connected rooms-\n";
+            ret_str += room_name + "->";
+            ret_str += (connectedRooms.get(room_name)) ? "unlocked" : "locked" ;
+            ret_str += "\n";
+            ret_str += "-Items-\n";
+            ret_str += this.items.toString();
+        }
+        return ret_str;
     }
 
     public String getName() {
@@ -24,88 +58,4 @@ public class Room {
     public String getDescription() {
         return this.description;
     }
-
-    public Set<Container> getContainers() {
-        return this.containers;
-    }
-
-    public Container getItems() {
-        return this.items;
-    }
-
-    public Map<Room, Boolean> getConnectedRoom() {
-        return this.connectedRooms;
-    }
-
-    public Room(GameMap gameMap, RoomSerializable rs){
-        this.name = rs.getName();
-        this.description = rs.getDescription();
-        this.items = gameMap.nameToContainer(rs.getItems());
-        Set<Container> containers = new HashSet<>();
-
-        for (String cs:rs.getContainers()) {
-            containers.add(gameMap.nameToContainer(cs));
-        }
-        this.containers = containers;
-
-        Map<Room,Boolean> connectedRooms = new HashMap<>();
-
-        for (String room:rs.getConnectedRooms().keySet()) {
-            connectedRooms.put(gameMap.nameToRoom(room),rs.getConnectedRooms().get(room));
-        }
-        this.connectedRooms = connectedRooms;
-    }
-
-    public Room(GameMap gameMap,String name, String description) {
-        this.name = name;
-        this.description = description;
-
-        this.items = new Container(name + "container", "");
-        this.containers = new HashSet<>();
-        this.connectedRooms = new HashMap<>();
-    }
-
-    public Room(GameMap gameMap, String name, String description, Room neighbor, Boolean locked) {
-        this.name = name;
-        this.description = description;
-        this.items = new Container(name + "container","");
-        this.containers = new HashSet<>();
-        Map<Room, Boolean> connectedRooms = new HashMap<>();
-
-        connectedRooms.put(neighbor,locked);
-
-        this.connectedRooms = connectedRooms;
-        neighbor.connectRooms(this,locked);
-    }
-
-    public Room(GameMap gameMap, String name, String description, Room neighbor) {
-        this.name = name;
-        this.description = description;
-        this.items = new Container(name + "container", "");
-        this.containers = new HashSet<>();
-        Map<Room, Boolean> connectedRooms = new HashMap<>();
-
-        connectedRooms.put(neighbor,false);
-        this.connectedRooms = connectedRooms;
-        neighbor.connectRooms(this,false);
-    }
-
-
-    public void connectRooms(Room room, Boolean locked){
-        this.connectedRooms.put(room, locked);
-    }
-
-    public void serialize() throws IOException {
-        RoomSerializable rs = new RoomSerializable(this);
-        rs.toJSON();
-
-        for (Item item:items.getItems()) {
-            item.toJSON();
-        }
-
-        for(Container container:containers){
-            container.toJSON();
-        }
-    }
-
 }

@@ -1,3 +1,6 @@
+/*
+ *	Player
+ */
 import java.util.*;
 
 public class Player {
@@ -24,5 +27,4 @@ public class Player {
     public void examine(Item item) {
         System.out.println(item.toString());
     }
-
 }

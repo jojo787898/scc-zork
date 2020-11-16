@@ -1,3 +1,9 @@
+#
+#	.gitignore
+#
+
+*.class
+Jars
 .DS_Store
 .idea/
 Containers
@@ -7,3 +13,8 @@ out
 scc-zork.iml
 src/.DS_Store
 src/Jars/.DS_Store
+Build
+json_out.txt
+src/Build
+src/*.class
+src/Jars
