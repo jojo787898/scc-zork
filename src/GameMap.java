@@ -7,9 +7,9 @@ import java.io.*;
 import java.util.*;
 
 public class GameMap {
-    Set<Room> rooms;
-    Set<Item> items;
-    Set<Container> containers;
+    private Set<Room> rooms;
+    private Set<Item> items;
+    private Set<Container> containers;
 
     public GameMap(String path) throws FileNotFoundException {
         rooms = new HashSet<>();
