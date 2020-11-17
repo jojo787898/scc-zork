@@ -15,8 +15,16 @@ public class Item {
         this.description = description;
     }
 
+    public String getDescription() {
+	    return this.description;
+    }
+
     public String getName() {
         return this.name;
+    }
+
+    public boolean equals(Item item_comp) {
+	return this.name.equals(item_comp.getName()) && this.description.equals(item_comp.getDescription());
     }
 
     public String toString() {

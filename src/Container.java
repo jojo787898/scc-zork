@@ -13,6 +13,10 @@ public class Container {
     private String description;
     private Set<Item> items;
 
+    public Container(){
+        this("", "", new HashSet<>());
+    }
+
     public Container(String name, String description, Set<Item> items){
         this.name = name;
         this.description = description;
@@ -37,6 +41,16 @@ public class Container {
 
     public String getName() {
         return this.name;
+    }
+
+    public boolean equals(Container cont_comp) {
+	    if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
+		return false;
+	    }
+	    if(!this.items.containsAll(cont_comp.getItems())) {
+		return false;
+	    }
+	    return true;
     }
 
     public String toString() {

@@ -12,8 +12,10 @@ public class Game {
         GameMap gameMap2;
         Room room1 = new Room("Toolshed", "shack where you make things");
         Room room2 = new Room("Jail", "holds the bad guys", room1.getName()); // construct room2 connected to room1
+	Container con1 = new Container("matching", "generic description");
+	Container con2 = new Container("not matching", "generic description");
 
-	    room1.connectRoom(room2.getName(), true); // Manually connect room1 to room2
+        room1.connectRoom(room2.getName(), true); // Manually connect room1 to room2
         room1.addItem("Screwdriver", "");
         gm.addRoom(room1);
         gm.addRoom(room2);
@@ -30,5 +32,11 @@ public class Game {
 
         System.out.println("GameMap 2");
         System.out.println(gameMap2.toString());
+
+	if(con1.equals(con2)) {
+		System.out.printf("con1 == con2\n");
+	} else {
+		System.out.printf("con1 != con2\n");
+	}
     }
 }

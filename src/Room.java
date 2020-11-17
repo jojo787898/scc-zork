@@ -9,7 +9,7 @@ public class Room {
 
     private String name;
     private String description;
-    // TODO unlock items
+    private Container unlock_items;
     private Container items;
     private Set<Container> containers;
     private Map<String, Boolean> connectedRooms;
@@ -19,6 +19,7 @@ public class Room {
         this.name = name;
         this.description = description;
         this.items = new Container(name + "container", "");
+	this.unlock_items = new Container();
         this.containers = new HashSet<>();
         this.connectedRooms = new HashMap<>();
     }
