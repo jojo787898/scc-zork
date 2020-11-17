@@ -9,6 +9,7 @@ public class Room {
 
     private String name;
     private String description;
+    // TODO unlock items
     private Container items;
     private Set<Container> containers;
     private Map<String, Boolean> connectedRooms;
@@ -37,7 +38,7 @@ public class Room {
         this.items.addItem(new Item(itemName, description));
     }
 
-    // TODO Make prettier
+    // TODO Make prettier, connected room names
     public String toString() {
         String ret_str = "";
         for(String room_name : connectedRooms.keySet()) {
@@ -50,6 +51,9 @@ public class Room {
         }
         return ret_str;
     }
+
+    // TODO take items, attempt to enter room(check item list),
+
 
     public String getName() {
         return this.name;
