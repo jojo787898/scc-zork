@@ -35,14 +35,6 @@ public class Container {
         this.items.remove(item);
     }
 
-    public Set<Item> getItems() {
-        return this.items;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
     public boolean equals(Container cont_comp) {
 	    if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
 		return false;
@@ -51,6 +43,18 @@ public class Container {
 		return false;
 	    }
 	    return true;
+    }
+    
+    public boolean hasItems(Container cont_comp) {
+  	return this.items.containsAll(cont_comp.getItems());
+    }
+
+    public Set<Item> getItems() {
+        return this.items;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public String toString() {
