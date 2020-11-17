@@ -7,30 +7,31 @@ import java.util.*;
 
 public class Room {
 
+    /* Members */
     private String name;
     private String description;
-    private Container unlock_items; // <- compare with players for unlock status
-    private Container items;
-    //private Set<Container> containers; <- adds complexity, maybe add back later
-    private Map<String, Boolean> connectedRooms; // <- room name and unlock status
+    private Container unlock_items;			// <- compare with players for unlock status
+    private Container items;				// <- items in the room
+    private Map<String, Boolean> connectedRooms;	// <- room name and unlock status
 
-    // Basic constructor with name and desc
+    //private Set<Container> containers; <- adds complexity, maybe add back later
+
+    /* Constructors */
+    public Room() {
+	    this("", "");
+    }
+
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
-        this.items = new Container(name + "container", "");
+        this.items = new Container();
 	this.unlock_items = new Container();
-        // this.containers = new HashSet<>(); <- check members
         this.connectedRooms = new HashMap<>();
+
+        // this.containers = new HashSet<>(); <- check members
     }
 
-    // Constructor with connection
-    public Room(String name, String description, String neighbor_room) {
-        this(name, description);
-        connectRoom(neighbor_room, false);
-    }
-
-    // Always make sure to connect both rooms in main
+    /* Edit room state functions */
     public void connectRoom(String room_name, boolean lock_status){
         this.connectedRooms.put(room_name, lock_status);
     }
@@ -47,7 +48,7 @@ public class Room {
 	this.unlock_items = set_items;
     }
 
-    // TODO take items, attempt to enter room(check item list),
+    /* API functions,  TODO take items, attempt to enter room(check item list), */
     public boolean canAccess(String connected_room_name) {
 	if(this.connectedRooms.get(connected_room_name)) {
 		return true;
@@ -67,6 +68,7 @@ public class Room {
 	}
     }
 
+    /* getters, setters, toStrings */
     public Map<String, Boolean> getConnectedRooms() {
 	    return this.connectedRooms;
     }
@@ -79,7 +81,7 @@ public class Room {
         return this.name;
     }
 
-    // TODO Make prettier, connected room names
+    // TODO Make prettier, print connected room names, print description
     public String toString() {
         String ret_str = "";
         for(String room_name : connectedRooms.keySet()) {

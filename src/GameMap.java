@@ -1,6 +1,7 @@
 /*
  *	GameMap
- *	Only use for serialization, not for game state
+ *	Tracks the current room, provides functions to print current room (and connected),
+ *	interact with items in room, 
  */
 
 import com.google.gson.*;
@@ -11,18 +12,22 @@ import java.lang.reflect.Type;
 
 public class GameMap {
 
+    /* Members */
+    private String current_room;
     private Set<Room> rooms;
 
-    // Default constructor
-    public GameMap(){
-        rooms = new HashSet<>();
+    /* Constructors */
+    public GameMap() {
+	this.current_room = "";
+        this.rooms = new HashSet<>();
     }
 
-    // Read
     public GameMap(String path) throws FileNotFoundException {
+	this.current_room = "";
         readFromFile(path);
     }
 
+    /* serializers*/
     // Have to do some funky shtuff to serialize a Set of rooms directly
     public void readFromFile(String path) {
         try {
@@ -40,7 +45,32 @@ public class GameMap {
         }
     }
 
-    public String toString(){
+    // default  to json_out.txt, can change name if like
+    public void save() throws IOException {
+	    save("json_out.txt");
+    }
+    
+    public void save(String path) throws IOException {
+        try {
+            Gson g = new Gson();
+            FileWriter writer = new FileWriter(path);
+            String json = g.toJson(this.rooms);
+
+            writer.write(json);
+            writer.close();
+        } catch(Exception e) {
+            System.err.printf("GameMap: error writing to %s\n", path);
+        }
+    }
+
+    /* Edit state functions */
+    public void addRoom(Room room) {
+        this.rooms.add(room);
+    }
+
+    /* getters, setters, toString */
+    // TODO ugly fix it
+    public String toString() {
         String out = "Rooms: \n------------\n";
         for (Room room : rooms) {
             out += room.getName() + ": " + room.getDescription() + "\n" + "Contains: \n";
@@ -48,32 +78,5 @@ public class GameMap {
             out += "----------\n";
         }
         return out;
-    }
-
-    public Room nameToRoom(String name){
-        for (Room room : rooms) {
-            if (room.getName().equals(name)){
-                return room;
-            }
-        }
-        System.out.println("Could not find room " + name);
-        return null;
-    }
-
-    public void Save() throws IOException {
-        try {
-            Gson g = new Gson();
-            FileWriter writer = new FileWriter("json_out.txt");
-            String json = g.toJson(this.rooms);
-
-            writer.write(json);
-            writer.close();
-        } catch(Exception e) {
-            System.err.printf("GameMap: error writing to \n");
-        }
-    }
-
-    public void addRoom(Room room) {
-        this.rooms.add(room);
     }
 }
