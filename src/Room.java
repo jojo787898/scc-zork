@@ -53,8 +53,7 @@ public class Room {
     }
 
     /* API functions */
-    // @param:	player_inv, player inventory at time of attempted access
-    // @return:	t/f if can access room
+    // Can this room be accessed
     public boolean canAccess(Container player_inv) {
 	if(unlocked || player_inv.hasItems(this.unlock_items)) {
 		return true;
@@ -64,6 +63,11 @@ public class Room {
     }
     public boolean canAccess() {
 	    return unlocked;
+    }
+
+    // Check if room is connected
+    public boolean is_connected(String room_name) {
+	return connectedRooms.contains(room_name);
     }
 
     /* getters, setters, toStrings */
@@ -94,6 +98,7 @@ public class Room {
         ret_str += this.items_in_room.toString();
         ret_str += "-unlock items-\n";
         ret_str += this.unlock_items.toString();
+        ret_str += (this.unlocked ? "unlocked" : "locked") + "\n";
         return ret_str;
     }
 }

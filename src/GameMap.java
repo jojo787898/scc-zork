@@ -13,11 +13,11 @@ import java.lang.reflect.Type;
 public class GameMap {
 
     /* Members */
-    private Set<Room> rooms; // TODO use map (name -> room) key/value pairings
+    private Map<String, Room> rooms;
 
     /* Constructors */
     public GameMap() {
-        this.rooms = new HashSet<>();
+        this.rooms = new HashMap<>();
     }
 
     public GameMap(String path) throws FileNotFoundException {
@@ -25,11 +25,11 @@ public class GameMap {
     }
 
     /* serializers*/
-    // Have to do some funky shtuff to serialize a Set of rooms directly
+    // Have to do some funky shtuff to serialize a Map of rooms directly
     public void readFromFile(String path) {
         try {
             Gson g = new Gson();
-            Type datasetListType = new TypeToken<Set<Room>>(){}.getType();
+            Type datasetListType = new TypeToken<Map<String, Room>>(){}.getType();
             String json = "";
             Scanner scan = new Scanner(new File(path));
             while(scan.hasNextLine()) {
@@ -62,21 +62,49 @@ public class GameMap {
 
     /* Edit state functions */
     public void addRoom(Room room) {
-        this.rooms.add(room);
+        this.rooms.put(room.getName(), room);
     }
 
     // @param:	room name to change into
-    // @return:	new room, null if failed
-    //public Room changeRoom(String room_name)
-    //public Room changeRoom(String room_name, Container player_inv)
+    // @return:	new room, (same if can't change), no error checking
+    public Room changeRoom(String start_room, String dest_room) {
+	    if(canChangeRoom(start_room, dest_room)) {
+		return rooms.get(dest_room);
+	    } else {
+		return rooms.get(start_room);
+	    }
+    }
+    public Room changeRoom(String start_room, String dest_room, Container player_inv) {
+	    if(canChangeRoom(start_room, dest_room)) { // already unlocked
+		return rooms.get(dest_room);
+	    } else if(!rooms.get(start_room).is_connected(dest_room)) { // not connected
+		return rooms.get(start_room);
+	    } else if(rooms.get(dest_room).canAccess(player_inv)) { // check if have valid items and unlock for later use
+		rooms.get(dest_room).unlock_room();
+		return rooms.get(dest_room);    	
+	    } else { //cannot access
+	        return rooms.get(start_room);
+	    }
+    }
+
+    // Helpter to changeRoom
+    public boolean canChangeRoom(String start_room, String dest_room) {
+	    if(!rooms.get(start_room).is_connected(dest_room)) { // not connected
+		return false;
+	    } else if(rooms.get(dest_room).canAccess()) { // is connected and can access
+		return true;
+	    } else { // cannot access dest
+		    return false;
+	    }
+    }
 
     /* getters, setters, toString */
     // TODO ugly fix it
     public String toString() {
         String out = "Rooms: \n------------\n";
-        for (Room room : rooms) {
-            out += room.getName() + ": " + room.getDescription() + "\n" + "Contains: \n";
-            out += room.toString();
+        for (String room_name : rooms.keySet()) {
+            out += room_name + ": " + rooms.get(room_name).getDescription() + "\n" + "Contains: \n";
+            out += rooms.get(room_name).toString();
             out += "----------\n";
         }
         return out;

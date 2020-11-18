@@ -48,6 +48,7 @@ public class Container {
 	    return true;
     }
     
+    // Must have exact items, not just items with the same name
     public boolean hasItems(Container cont_comp) {
   	return this.items.containsAll(cont_comp.getItems());
     }
