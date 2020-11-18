@@ -1,6 +1,6 @@
 /*
  *	GameMap
- *	Tracks the current room, provides functions to print current room (and connected),
+ *	Tracks the provides functions to print current room (and connected),
  *	interact with items in room, 
  */
 
@@ -13,17 +13,14 @@ import java.lang.reflect.Type;
 public class GameMap {
 
     /* Members */
-    private String current_room;
     private Set<Room> rooms; // TODO use map (name -> room) key/value pairings
 
     /* Constructors */
     public GameMap() {
-	this.current_room = "";
         this.rooms = new HashSet<>();
     }
 
     public GameMap(String path) throws FileNotFoundException {
-	this.current_room = "";
         readFromFile(path);
     }
 
@@ -68,7 +65,10 @@ public class GameMap {
         this.rooms.add(room);
     }
 
-    //public boolean canAccess(String room_name)
+    // @param:	room name to change into
+    // @return:	new room, null if failed
+    //public Room changeRoom(String room_name)
+    //public Room changeRoom(String room_name, Container player_inv)
 
     /* getters, setters, toString */
     // TODO ugly fix it

@@ -25,10 +25,10 @@ public class Game {
 	// room1 has items Screwdriver & handcuffs
 	// room2 cannot access room1
 	// room2 has unlock status of i1 & i2
-        room1.connectRoom(room2.getName(), false);
+        room1.connectRoom(room2.getName());
         room1.addItem("Screwdriver", "");
 	room1.addItem("handcuffs", "hand restrainers");
-        room2.connectRoom(room1.getName(), false);
+        room2.connectRoom(room1.getName());
 	room2.add_unlock_item(i1);
 	room2.add_unlock_item(i2);
 
@@ -81,6 +81,5 @@ public class Game {
 	System.out.printf("%s\n", con1.toString());
 	System.out.printf("%s\n", room1.toString());
 	System.out.printf("%s\n", room2.toString());
-	System.out.printf("room1 %s access room2\n", room1.canAccess(room2.getName(), con1) ? "can" : "cannot");
     }
 }
