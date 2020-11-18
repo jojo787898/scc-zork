@@ -62,12 +62,10 @@ public class Container {
     }
 
     public String toString() {
-        String name = "Name : " + this.name + "\n";
-        String description = "Description : " + this.description + "\n";
-        String itemList = "Items : ";
+        String itemList = "";
         for (Item item : this.items) {
             itemList += item.getName() + ", ";
         }
-        return name + description + itemList + "\n";
+        return "[container]" + name + ": " + description + "\n" + itemList + "\n";
     }
 }

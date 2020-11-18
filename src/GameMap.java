@@ -14,7 +14,7 @@ public class GameMap {
 
     /* Members */
     private String current_room;
-    private Set<Room> rooms;
+    private Set<Room> rooms; // TODO use map (name -> room) key/value pairings
 
     /* Constructors */
     public GameMap() {
@@ -67,6 +67,8 @@ public class GameMap {
     public void addRoom(Room room) {
         this.rooms.add(room);
     }
+
+    //public boolean canAccess(String room_name)
 
     /* getters, setters, toString */
     // TODO ugly fix it

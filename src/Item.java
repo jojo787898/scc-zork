@@ -28,7 +28,7 @@ public class Item {
     }
 
     public String toString() {
-        String total = "Name : " + getName() + "\nDescription : " + this.description;
+        String total = "[item] " + getName() + ": " + this.description;
         return total;
     }
 }
