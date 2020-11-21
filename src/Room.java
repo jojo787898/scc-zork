@@ -36,19 +36,19 @@ public class Room {
         this.connectedRooms.add(room_name);
     }
 
-    public void addItem(String itemName, String description){
-        this.items_in_room.addItem(new Item(itemName, description));
+    public void addItem(String item_name, String description){
+        this.items_in_room.addItem(new Item(item_name, description));
     }
 
-    public void add_unlock_item(Item new_item) {
+    public void addUnlockItem(Item new_item) {
 	this.unlock_items.addItem(new_item);
     }
 
-    public void set_unlock_items(Container set_items) {
+    public void setUnlockItems(Container set_items) {
 	this.unlock_items = set_items;
     }
 
-    public void unlock_room() {
+    public void unlockRoom() {
 	    this.unlocked = true;
     }
 
@@ -66,7 +66,7 @@ public class Room {
     }
 
     // Check if room is connected
-    public boolean is_connected(String room_name) {
+    public boolean isConnected(String room_name) {
 	return connectedRooms.contains(room_name);
     }
 
@@ -79,6 +79,10 @@ public class Room {
 	return this.items_in_room;
     }
 
+    public Container setItemsInRoom(Container set_items) {
+	return this.items_in_room = set_items;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -87,18 +91,18 @@ public class Room {
         return this.name;
     }
 
-    // TODO Make prettier, print connected room names, print description
+    // Describe room
     public String toString() {
         String ret_str = this.name + "\n";
-        for(String room_name : connectedRooms) {
-            ret_str += "-Connected rooms-\n";
-            ret_str += room_name + "\n";
-        }
-        ret_str += "-takable items-\n";
-        ret_str += this.items_in_room.toString();
-        ret_str += "-unlock items-\n";
-        ret_str += this.unlock_items.toString();
-        ret_str += (this.unlocked ? "unlocked" : "locked") + "\n";
+	if(unlocked) {
+		ret_str += this.description + "\n";
+		ret_str += this.items_in_room.toString();
+	} else {
+		ret_str += "Seems locked...\n";
+		ret_str += "There looks to be a socket for: ";
+		ret_str += this.unlock_items.itemsToString();
+		ret_str += "\n";
+	}
         return ret_str;
     }
 }

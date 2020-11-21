@@ -62,11 +62,17 @@ public class Container {
         return this.name;
     }
 
-    public String toString() {
+    // Get string of only items
+    public String itemsToString() {
         String itemList = "";
         for (Item item : this.items) {
             itemList += item.getName() + ", ";
         }
-        return "[container]" + name + ": " + description + "\n" + itemList + "\n";
+	return itemList;
+    }
+
+    // Describe container and items inside
+    public String toString() {
+        return name + ": " + description + "\n" + "Inside seems to be: " + itemsToString() + "\n";
     }
 }

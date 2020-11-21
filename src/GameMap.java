@@ -98,12 +98,32 @@ public class GameMap {
 	    }
     }
 
+    public String roomToString(String room_name) {
+	Room cur_room = rooms.get(room_name);
+	String ret_str = "";
+
+	ret_str = "You are in: ";
+	ret_str += cur_room.toString();
+	ret_str += "----------\n";
+	ret_str += "The connected rooms are:\n";
+	// Iterate connected rooms
+        for (String connected_room_name : cur_room.getConnectedRooms()) {
+            ret_str += "\n";
+	    if(rooms.get(connected_room_name).canAccess()) { // Just print name for unlocked room
+		    ret_str += connected_room_name;
+	    } else { // print unlocked version
+		    ret_str += rooms.get(connected_room_name).toString();
+	    }
+            ret_str += "\n";
+	}
+	return ret_str;
+    }
+
     /* getters, setters, toString */
     // TODO ugly fix it
     public String toString() {
-        String out = "Rooms: \n------------\n";
+        String out = "All rooms\n------------\n";
         for (String room_name : rooms.keySet()) {
-            out += room_name + ": " + rooms.get(room_name).getDescription() + "\n" + "Contains: \n";
             out += rooms.get(room_name).toString();
             out += "----------\n";
         }
