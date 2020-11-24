@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 public class GameMap {
 
     /* Members */
-    private Map<String, Room> rooms;
+    private Map<String, Room> rooms;	// <- room names mapped to actual rooms
 
     /* Constructors */
     public GameMap() {
@@ -65,8 +65,8 @@ public class GameMap {
         this.rooms.put(room.getName(), room);
     }
 
-    // @param:	room name to change into
-    // @return:	new room, (same if can't change), no error checking
+    // @param:	room names to change from/to
+    // @return:	new room object (same if can't change), no error checking
     public Room changeRoom(String start_room, String dest_room) {
         if(canChangeRoom(start_room, dest_room)) {
             return rooms.get(dest_room);
@@ -74,6 +74,9 @@ public class GameMap {
             return rooms.get(start_room);
         }
     }
+
+    // @param:	room names to change from/to,
+    //		player inventory to check if can change into
     public Room changeRoom(String start_room, String dest_room, Container player_inv) {
         if(canChangeRoom(start_room, dest_room)) { // already unlocked
             return rooms.get(dest_room);
@@ -87,35 +90,30 @@ public class GameMap {
         }
     }
 
-    // Helpter to changeRoom
-    public boolean canChangeRoom(String start_room, String dest_room) {
+    // Helper to changeRoom functions
+    private boolean canChangeRoom(String start_room, String dest_room) {
         if(!rooms.get(start_room).isConnected(dest_room)) { // not connected
             return false;
         } else if(rooms.get(dest_room).canAccess()) { // is connected and can access
             return true;
-        } else { // cannot access dest
+        } else { // cannot access destination
             return false;
         }
     }
 
-    public String roomToString(String room_name) {
-        Room cur_room = rooms.get(room_name);
+    // @return: string with current room and connected room names (no items)
+    public String roomToString(String cur_room_name) {
         String ret_str = "";
 
-        ret_str = "You are in: ";
-        ret_str += cur_room.toString();
+        ret_str += rooms.get(cur_room_name).toString();
         ret_str += "----------\n";
         ret_str += "The connected rooms are:\n";
         // Iterate connected rooms
-        for (String connected_room_name : cur_room.getConnectedRooms()) {
+        for (String connected_room_name : rooms.get(cur_room_name).getConnectedRooms()) {
             ret_str += "\n";
-        if(rooms.get(connected_room_name).canAccess()) { // Just print name for unlocked room
-            ret_str += connected_room_name;
-        } else { // print unlocked version
-            ret_str += rooms.get(connected_room_name).toString();
+            ret_str += "\033[1;3m" + connected_room_name + "\033[0m";
         }
-            ret_str += "\n";
-        }
+	ret_str += "\n";
         return ret_str;
     }
 

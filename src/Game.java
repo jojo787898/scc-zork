@@ -41,23 +41,26 @@ public class Game {
 	room3_cont.addItem(fork);
 	room3.setUnlockItems(room3_cont);
         room3.connectRoom(room2.getName());
-	
+    
 	game_map.addRoom(room1);
 	game_map.addRoom(room2);
 	game_map.addRoom(room3);
 
 	// Tests serialization
-        System.out.printf("%s\n", game_map.toString());
-	/*
+        //System.out.printf("%s\n", game_map.toString());
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println(game_map.roomToString(room1.getName()));
+        System.out.println(room1.containerNameToString());
+        System.out.println(room1.containedItemsToString());
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println(game_map.roomToString(room2.getName()));
+        System.out.println(room2.containerNameToString());
+        System.out.println(room2.containedItemsToString());
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println(game_map.roomToString(room3.getName()));
+        System.out.println(room3.containerNameToString());
+        System.out.println(room3.containedItemsToString());
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
-	*/
-	
 	/*
         gm.save();
 

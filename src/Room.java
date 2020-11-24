@@ -92,17 +92,21 @@ public class Room {
         return this.name;
     }
 
-    // Describe room
+    public String containerNameToString() {
+        return this.items_in_room.getName();
+    }
+
+    public String containedItemsToString() {
+        return this.items_in_room.toString();
+    }
+
+    // Describe room depending on lock status
     public String toString() {
-        String ret_str = this.name + "\n";
+        String ret_str = "\033[1;3m" + this.name + "\033[0m\n";
         if(unlocked) {
             ret_str += this.description + "\n";
-            ret_str += this.items_in_room.toString();
         } else {
             ret_str += "Seems locked...\n";
-            ret_str += "There looks to be a socket for: ";
-            ret_str += this.unlock_items.itemsToString();
-            ret_str += "\n";
         }
         return ret_str;
     }

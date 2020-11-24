@@ -15,6 +15,10 @@ public class Item {
         this.description = description;
     }
 
+    public boolean equals(Item item_comp) {
+        return this.name.equals(item_comp.getName()) && this.description.equals(item_comp.getDescription());
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -23,12 +27,7 @@ public class Item {
         return this.name;
     }
 
-    public boolean equals(Item item_comp) {
-        return this.name.equals(item_comp.getName()) && this.description.equals(item_comp.getDescription());
-    }
-
     public String toString() {
-        String total = "[item] " + getName() + ": " + this.description;
-        return total;
+        return this.name + ": " + this.description;
     }
 }
