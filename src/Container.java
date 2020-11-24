@@ -39,6 +39,7 @@ public class Container {
     }
 
     /* API functions*/
+    // @return: if 2 containers are exactly the same
     public boolean equals(Container cont_comp) {
         if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
             return false;

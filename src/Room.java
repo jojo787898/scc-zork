@@ -12,8 +12,8 @@ public class Room {
     /* Members */
     private String name;
     private String description;
-    private boolean unlocked;
-    private Container unlock_items;		// <- compare with players for unlock status
+    private boolean unlocked;				// <- defaults to locked
+    private Container unlock_items;			// <- compare with players for unlock status
     private Container items_in_room;		// <- items in the room
     private Set<String> connectedRooms;		// <- room name and unlock status
 
@@ -44,29 +44,28 @@ public class Room {
         this.unlock_items.addItem(new_item);
     }
 
-    public void setUnlockItems(Container set_items) {
-        this.unlock_items = set_items;
-    }
+	public void setUnlockItems(Container unlock_items) {
+		this.unlock_items = unlock_items;
+	}
 
     public void unlockRoom() {
         this.unlocked = true;
     }
 
     /* API functions */
-    // Can this room be accessed
+    // @param:	player inventory at time of checking
     public boolean canAccess(Container player_inv) {
-        if(unlocked || player_inv.hasItems(this.unlock_items)) {
+        if(this.unlocked || player_inv.hasItems(this.unlock_items)) {
             return true;
         } else {
             return false;
         }
     }
-
+    
     public boolean canAccess() {
-        return unlocked;
+        return canAccess(new Container());
     }
 
-    // Check if room is connected
     public boolean isConnected(String room_name) {
         return connectedRooms.contains(room_name);
     }
