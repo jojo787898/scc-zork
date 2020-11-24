@@ -16,7 +16,7 @@ public class Item {
     }
 
     public String getDescription() {
-	    return this.description;
+        return this.description;
     }
 
     public String getName() {
@@ -24,7 +24,7 @@ public class Item {
     }
 
     public boolean equals(Item item_comp) {
-	return this.name.equals(item_comp.getName()) && this.description.equals(item_comp.getDescription());
+        return this.name.equals(item_comp.getName()) && this.description.equals(item_comp.getDescription());
     }
 
     public String toString() {

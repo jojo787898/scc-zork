@@ -39,18 +39,18 @@ public class Container {
 
     /* API functions*/
     public boolean equals(Container cont_comp) {
-	    if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
-		return false;
-	    }
-	    if(!this.items.equals(cont_comp.getItems())) {
-		return false;
-	    }
-	    return true;
+        if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
+            return false;
+        }
+        if(!this.items.equals(cont_comp.getItems())) {
+            return false;
+        }
+        return true;
     }
     
     // Must have exact items, not just items with the same name
     public boolean hasItems(Container cont_comp) {
-  	return this.items.containsAll(cont_comp.getItems());
+        return this.items.containsAll(cont_comp.getItems());
     }
 
     // getters & setters & toString
@@ -68,7 +68,7 @@ public class Container {
         for (Item item : this.items) {
             itemList += item.getName() + ", ";
         }
-	return itemList;
+        return itemList;
     }
 
     // Describe container and items inside

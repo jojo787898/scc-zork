@@ -44,7 +44,7 @@ public class GameMap {
 
     // default  to json_out.txt, can change name if like
     public void save() throws IOException {
-	    save("json_out.txt");
+        save("json_out.txt");
     }
     
     public void save(String path) throws IOException {
@@ -68,59 +68,58 @@ public class GameMap {
     // @param:	room name to change into
     // @return:	new room, (same if can't change), no error checking
     public Room changeRoom(String start_room, String dest_room) {
-	    if(canChangeRoom(start_room, dest_room)) {
-		return rooms.get(dest_room);
-	    } else {
-		return rooms.get(start_room);
-	    }
+        if(canChangeRoom(start_room, dest_room)) {
+            return rooms.get(dest_room);
+        } else {
+            return rooms.get(start_room);
+        }
     }
     public Room changeRoom(String start_room, String dest_room, Container player_inv) {
-	    if(canChangeRoom(start_room, dest_room)) { // already unlocked
-		return rooms.get(dest_room);
-	    } else if(!rooms.get(start_room).isConnected(dest_room)) { // not connected
-		return rooms.get(start_room);
-	    } else if(rooms.get(dest_room).canAccess(player_inv)) { // check if have valid items and unlock for later use
-		rooms.get(dest_room).unlockRoom();
-		return rooms.get(dest_room);    	
-	    } else { //cannot access
-	        return rooms.get(start_room);
-	    }
+        if(canChangeRoom(start_room, dest_room)) { // already unlocked
+            return rooms.get(dest_room);
+        } else if(!rooms.get(start_room).isConnected(dest_room)) { // not connected
+            return rooms.get(start_room);
+        } else if(rooms.get(dest_room).canAccess(player_inv)) { // check if have valid items and unlock for later use
+            rooms.get(dest_room).unlockRoom();
+            return rooms.get(dest_room);        
+        } else { //cannot access
+            return rooms.get(start_room);
+        }
     }
 
     // Helpter to changeRoom
     public boolean canChangeRoom(String start_room, String dest_room) {
-	    if(!rooms.get(start_room).isConnected(dest_room)) { // not connected
-		return false;
-	    } else if(rooms.get(dest_room).canAccess()) { // is connected and can access
-		return true;
-	    } else { // cannot access dest
-		    return false;
-	    }
+        if(!rooms.get(start_room).isConnected(dest_room)) { // not connected
+            return false;
+        } else if(rooms.get(dest_room).canAccess()) { // is connected and can access
+            return true;
+        } else { // cannot access dest
+            return false;
+        }
     }
 
     public String roomToString(String room_name) {
-	Room cur_room = rooms.get(room_name);
-	String ret_str = "";
+        Room cur_room = rooms.get(room_name);
+        String ret_str = "";
 
-	ret_str = "You are in: ";
-	ret_str += cur_room.toString();
-	ret_str += "----------\n";
-	ret_str += "The connected rooms are:\n";
-	// Iterate connected rooms
+        ret_str = "You are in: ";
+        ret_str += cur_room.toString();
+        ret_str += "----------\n";
+        ret_str += "The connected rooms are:\n";
+        // Iterate connected rooms
         for (String connected_room_name : cur_room.getConnectedRooms()) {
             ret_str += "\n";
-	    if(rooms.get(connected_room_name).canAccess()) { // Just print name for unlocked room
-		    ret_str += connected_room_name;
-	    } else { // print unlocked version
-		    ret_str += rooms.get(connected_room_name).toString();
-	    }
+        if(rooms.get(connected_room_name).canAccess()) { // Just print name for unlocked room
+            ret_str += connected_room_name;
+        } else { // print unlocked version
+            ret_str += rooms.get(connected_room_name).toString();
+        }
             ret_str += "\n";
-	}
-	return ret_str;
+        }
+        return ret_str;
     }
 
     /* getters, setters, toString */
-    // TODO ugly fix it
     public String toString() {
         String out = "All rooms\n------------\n";
         for (String room_name : rooms.keySet()) {
