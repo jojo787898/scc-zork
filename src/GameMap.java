@@ -77,10 +77,10 @@ public class GameMap {
     public Room changeRoom(String start_room, String dest_room, Container player_inv) {
 	    if(canChangeRoom(start_room, dest_room)) { // already unlocked
 		return rooms.get(dest_room);
-	    } else if(!rooms.get(start_room).is_connected(dest_room)) { // not connected
+	    } else if(!rooms.get(start_room).isConnected(dest_room)) { // not connected
 		return rooms.get(start_room);
 	    } else if(rooms.get(dest_room).canAccess(player_inv)) { // check if have valid items and unlock for later use
-		rooms.get(dest_room).unlock_room();
+		rooms.get(dest_room).unlockRoom();
 		return rooms.get(dest_room);    	
 	    } else { //cannot access
 	        return rooms.get(start_room);
@@ -89,7 +89,7 @@ public class GameMap {
 
     // Helpter to changeRoom
     public boolean canChangeRoom(String start_room, String dest_room) {
-	    if(!rooms.get(start_room).is_connected(dest_room)) { // not connected
+	    if(!rooms.get(start_room).isConnected(dest_room)) { // not connected
 		return false;
 	    } else if(rooms.get(dest_room).canAccess()) { // is connected and can access
 		return true;

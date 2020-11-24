@@ -47,7 +47,8 @@ public class Game {
 	game_map.addRoom(room3);
 
 	// Tests serialization
-        //System.out.println("GameMap 1:");
+        System.out.printf("%s\n", game_map.toString());
+	/*
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println(game_map.roomToString(room1.getName()));
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
@@ -55,6 +56,7 @@ public class Game {
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
         System.out.println(game_map.roomToString(room3.getName()));
         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+	*/
 	
 	/*
         gm.save();
