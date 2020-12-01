@@ -109,4 +109,8 @@ public class GameMap {
         }
         return out;
     }
+
+    public Map<String, Room> getRooms() {
+        return this.rooms;
+    }
 }

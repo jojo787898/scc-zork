@@ -26,8 +26,8 @@ public class Room {
         this.name = name;
         this.description = description;
         this.items_in_room = new Container();
-	this.unlock_items = new Container();
-	this.unlocked = false;
+        this.unlock_items = new Container();
+	    this.unlocked = false;
         this.connectedRooms = new HashSet<>();
     }
 
@@ -55,11 +55,11 @@ public class Room {
     /* API functions */
     // Can this room be accessed
     public boolean canAccess(Container player_inv) {
-	if(unlocked || player_inv.hasItems(this.unlock_items)) {
+	    if(unlocked || player_inv.hasItems(this.unlock_items)) {
 		return true;
-	} else {
+	    } else {
 		return false;
-	}
+	    }
     }
     public boolean canAccess() {
 	    return unlocked;

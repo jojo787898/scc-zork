@@ -69,4 +69,14 @@ public class Container {
         }
         return "[container]" + name + ": " + description + "\n" + itemList + "\n";
     }
+
+    public Item searchItem(String s) {
+        Item search = null;
+        for (Item item : this.items) {
+            if (item.getName().equals(s)) {
+                search = item;
+            }
+        }
+        return search;
+    }
 }
