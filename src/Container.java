@@ -8,65 +8,64 @@ import java.io.*;
 import java.util.*;
 
 public class Container {
+
     /* Members */
     private String name;
     private String description;
-    private Set<Item> items;
+    private ArrayList<Item> contained_items;
 
     /* Constructors */
     public Container(){
-        this("", "", new HashSet<>());
+        this("", "", new ArrayList<>());
     }
 
     public Container(String name, String description){
-        this(name, description, new HashSet<>());
+        this(name, description, new ArrayList<>());
     }
 
-    public Container(String name, String description, Set<Item> items){
+    public Container(String name, String description, ArrayList<Item> items){
         this.name = name;
-        this.items = items;
+        this.contained_items = items;
         this.description = description;
     }
 
     /* Edit state */
     public void addItem(Item item) {
-        items.add(item);
+        this.contained_items.add(item);
     }
 
     public void removeItem(Item item) {
-        this.items.remove(item);
+        this.contained_items.remove(item);
     }
 
     /* API functions*/
+    // @return: if 2 containers are exactly the same
     public boolean equals(Container cont_comp) {
-	    if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
-		return false;
-	    }
-	    if(!this.items.equals(cont_comp.getItems())) {
-		return false;
-	    }
-	    return true;
+        if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
+            return false;
+        }
+        if(!this.contained_items.equals(cont_comp.getItems())) {
+            return false;
+        }
+        return true;
     }
     
     // Must have exact items, not just items with the same name
     public boolean hasItems(Container cont_comp) {
-  	return this.items.containsAll(cont_comp.getItems());
+        return this.contained_items.containsAll(cont_comp.getItems());
     }
 
     // getters & setters & toString
-    public Set<Item> getItems() {
-        return this.items;
+    public ArrayList<Item> getItems() {
+        return this.contained_items;
     }
 
     public String getName() {
         return this.name;
     }
 
+    // @return:	only item list
     public String toString() {
-        String itemList = "";
-        for (Item item : this.items) {
-            itemList += item.getName() + ", ";
-        }
-        return "[container]" + name + ": " + description + "\n" + itemList + "\n";
+        return this.contained_items.toString();
     }
 }

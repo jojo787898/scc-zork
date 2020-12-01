@@ -9,35 +9,59 @@ public class Game {
 
     public static void main(String[] args) throws IOException {
 
-        GameMap gm = new GameMap();
-        GameMap gameMap2;
-        Room room1 = new Room("room1", "room1 description");
-        Room room2 = new Room("room2", "room2 2 descripto");
-	Container con1 = new Container("matching", "generic description");
-	Container con2 = new Container("not matching", "generic description");
-	Item i1  = new Item("i1", "d1");
-	Item i2  = new Item("i2", "d2");
+        GameMap game_map = new GameMap();
+        GameMap game_map2;
 
-	// Testcase:
-	// room1 cannot access room2
-	// room1 has items Screwdriver & handcuffs
-	// room2 cannot access room1
-	// room2 has unlock status of i1 & i2
+        Room room1 = new Room("Dungeon", "You wake up sitting on a cold and wet floor. The walls are dark and rough. There is a glint of light coming from above, illuminating a cracked open door...");
+        Room room2 = new Room("Dining Room", "There is a large rectangular table, filled with plates a silverware. An old dusty chandellier hangs from the ceiling. Behind you is a cracked open door. You see a large gate at the end of the table...");
+        Room room3 = new Room("Winning Room", "You win...");
+	Container room1_cont = new Container("Chest", "A boxlike chest similar to one you would find in M*necraft.");
+	Container room2_cont = new Container("Table", "Items scattered across a table, some look old and rusty, others look usable.");
+	// No name or desc, just winning set
+	Container room3_cont = new Container("", "");
+	Item fork  = new Item("fork", "The pointy thing you eat with");
+	Item stick  = new Item("stick", "A stick");
+
+
+	// set up r1
+	room1_cont.addItem(stick);
+        room1.unlockRoom();
+	room1.setItemsInRoom(room1_cont);
         room1.connectRoom(room2.getName());
-        room1.addItem("Screwdriver", "");
-	room1.addItem("handcuffs", "hand restrainers");
-        room2.connectRoom(room1.getName());
-	room2.add_unlock_item(i1);
-	room2.add_unlock_item(i2);
 
-        gm.addRoom(room1);
-        gm.addRoom(room2);
+	// set up r2
+	room2_cont.addItem(fork);
+	room2.unlockRoom();
+	room2.setItemsInRoom(room2_cont);
+        room2.connectRoom(room1.getName());
+        room2.connectRoom(room3.getName());
+
+	// set up r3
+	room3_cont.addItem(stick);
+	room3_cont.addItem(fork);
+	room3.setUnlockItems(room3_cont);
+        room3.connectRoom(room2.getName());
+    
+	game_map.addRoom(room1);
+	game_map.addRoom(room2);
+	game_map.addRoom(room3);
 
 	// Tests serialization
+        //System.out.printf("%s\n", game_map.toString());
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println(game_map.roomToString(room1.getName()));
+        //System.out.println(room1.containerNameToString());
+        //System.out.println(room1.containedItemsToString());
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println(game_map.roomToString(room2.getName()));
+        //System.out.println(room2.containerNameToString());
+        //System.out.println(room2.containedItemsToString());
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+        System.out.println(game_map.roomToString(room3.getName()));
+        //System.out.println(room3.containerNameToString());
+        //System.out.println(room3.containedItemsToString());
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
 	/*
-        System.out.println("GameMap 1:");
-        System.out.println(gm.toString());
-
         gm.save();
 
         System.out.println();
@@ -47,50 +71,5 @@ public class Game {
         System.out.println("GameMap 2");
         System.out.println(gameMap2.toString());
 	*/
-	// Tests room functions
-	/*
-	con1.addItem(i1);
-	con2.addItem(i1);
-	con2.addItem(i2);
-	if(con1.equals(con2)) {
-		System.out.printf("con1 == con2\n");
-	} else {
-		System.out.printf("con1 != con2\n");
-	}
-	if(con1.hasItems(con2)) {
-		System.out.printf("con1 has all of con2's items\n");
-	} else {
-		System.out.printf("con1 doesn't have con2's items\n");
-	}
-	if(con2.hasItems(con1)) {
-		System.out.printf("con2 has all of con1's items\n");
-	} else {
-		System.out.printf("con2 doesn't have con1's items\n");
-	}
-	System.out.println();
-	*/
-	/*
-	 Assume player has inventory of con1 and in room 1
-	System.out.printf("%s\n", con1.toString());
-	System.out.printf("%s\n", room1.toString());
-	System.out.printf("%s\n", room2.toString());
-	*/
-	
-        System.out.println(gm.toString());
-
-
-	System.out.printf("room1 into room2 -> %s\n", (gm.canChangeRoom("room1", "room2") ? "yes": "no"));
-	System.out.printf("room2 into room1 -> %s\n\n", (gm.canChangeRoom("room2", "room1") ? "yes": "no"));
-
-	con1.addItem(i1);
-	con1.addItem(i2);
-	System.out.printf("%s\n", con1.toString());
-	gm.changeRoom("room2", "room1", con1);
-	gm.changeRoom("room1", "room2", con1);
-
-	System.out.printf("room1 into room2 -> %s\n", (gm.canChangeRoom("room1", "room2") ? "yes": "no"));
-	System.out.printf("room2 into room1 -> %s\n\n", (gm.canChangeRoom("room2", "room1") ? "yes": "no"));
-
-        System.out.println(gm.toString());
     }
 }
