@@ -44,9 +44,9 @@ public class Room {
         this.unlock_items.addItem(new_item);
     }
 
-	public void setUnlockItems(Container unlock_items) {
-		this.unlock_items = unlock_items;
-	}
+    public void setUnlockItems(Container unlock_items) {
+	this.unlock_items = unlock_items;
+    }
 
     public void unlockRoom() {
         this.unlocked = true;

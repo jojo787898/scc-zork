@@ -18,7 +18,6 @@ public class Game {
         Item fork  = new Item("fork", "The pointy thing you eat with");
         Item stick  = new Item("stick", "A stick");
 
-
         // set up r1
         room1_cont.addItem(stick);
         room1.unlockRoom();
@@ -44,6 +43,7 @@ public class Game {
         map.addRoom(room3);
         Player p1 = new Player(map.getRooms().get("Dungeon Room"));
         intro();
+        map.save();
         gameStart(p1, map.getRooms().get("Winning Room"));
     }
 

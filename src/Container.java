@@ -39,20 +39,29 @@ public class Container {
     }
 
     /* API functions*/
-    // @return: if 2 containers are exactly the same
-    public boolean equals(Container cont_comp) {
-        if(!this.name.equals(cont_comp.getName()) || !this.name.equals(cont_comp.getName())) {
-            return false;
-        }
-        if(!this.contained_items.equals(cont_comp.getItems())) {
-            return false;
-        }
-        return true;
-    }
     
     // Must have exact items, not just items with the same name
+    // O(n^2) search time, really bad, think of better way
+    /*TODO Compare names and description strings*/
     public boolean hasItems(Container cont_comp) {
-        return this.contained_items.equals(cont_comp.getItems());
+        int n = cont_comp.getItems().size();
+        boolean checked_items[] = new boolean[n];
+        for(int i = 0; i < n; i++) {
+                checked_items[i] = false;
+        }
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < this.contained_items.size(); j++) {
+                if (!checked_items[j] && cont_comp.getItems().get(j).equals
+                        (this.contained_items.get(i))) { // Match, mark as checked and stop early
+                    checked_items[j] = true;
+                    break;
+                }
+                if (j == this.contained_items.size() - 1) { // Got to end, missing item
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     // getters & setters & toString
