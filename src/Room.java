@@ -27,7 +27,7 @@ public class Room {
         this.description = description;
         this.items_in_room = new Container();
         this.unlock_items = new Container();
-        this.unlocked = false;
+	    this.unlocked = false;
         this.connectedRooms = new HashSet<>();
     }
 
